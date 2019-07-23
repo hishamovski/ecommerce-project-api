@@ -1,18 +1,19 @@
 const mongoose = require('mongoose')
 
-const saleSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema({
 
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
+  address: {
+    type: String,
+    required: true
+  },
   products: [{
-    text: String,
-    postedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product'
   }]
 },
 {
@@ -22,4 +23,4 @@ const saleSchema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Sale', saleSchema)
+module.exports = mongoose.model('Order', orderSchema)

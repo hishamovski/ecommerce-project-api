@@ -8,6 +8,8 @@ const cors = require('cors')
 const exampleRoutes = require('./app/routes/example_routes')
 const userRoutes = require('./app/routes/user_routes')
 const productRoutes = require('./app/routes/product_routes')
+const uploadRoutes = require('./app/routes/upload_routes')
+const orderRoutes = require('./app/routes/order_routes')
 
 // require error handling middleware
 const errorHandler = require('./lib/error_handler')
@@ -54,14 +56,16 @@ app.use(auth)
 // add `bodyParser` middleware which will parse JSON requests into
 // JS objects before they reach the route files.
 // The method `.use` sets up middleware for the Express application
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '50mb' }))
 // this parses requests sent by `$.ajax`, which use a different content type
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }))
 
 // register route files
 app.use(exampleRoutes)
 app.use(userRoutes)
 app.use(productRoutes)
+app.use(uploadRoutes)
+app.use(orderRoutes)
 
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be
