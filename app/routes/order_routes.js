@@ -58,11 +58,13 @@ router.get('/orders/:id', requireToken, (req, res, next) => {
 // CREATE
 router.post('/orders', requireToken, (req, res, next) => {
   // set owner of new example to be current user
-  console.log(req)
+  console.log('************************************************************')
+  console.log(req.body)
+  console.log('************************************************************')
+
   req.body.order.owner = req.user.id
 
   Order.create(req.body.order)
-    // respond to succesful `create` with status 201 and JSON of new "example"
     .then(order => {
       res.status(201).json({ order: order.toObject() })
     })

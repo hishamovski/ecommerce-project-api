@@ -12,7 +12,6 @@ curl "${API}${URL_PATH}" \
     "order": {
       "address": "'"${ADDRESS}"'",
       "products": "'"${PRODUCTS}"'"
-
     }
   }'
 

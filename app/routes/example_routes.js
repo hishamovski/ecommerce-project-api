@@ -43,26 +43,17 @@ router.get('/examples', requireToken, (req, res, next) => {
     .catch(next)
 })
 
-// SHOW
-// GET /examples/5a7db6c74d55bc51bdf39793
 router.get('/examples/:id', requireToken, (req, res, next) => {
-  // req.params.id will be set based on the `:id` in the route
   Example.findById(req.params.id)
     .then(handle404)
-    // if `findById` is succesful, respond with 200 and "example" JSON
     .then(example => res.status(200).json({ example: example.toObject() }))
-    // if an error occurs, pass it to the handler
     .catch(next)
 })
 
-// CREATE
-// POST /examples
 router.post('/examples', requireToken, (req, res, next) => {
-  // set owner of new example to be current user
   req.body.example.owner = req.user.id
 
   Example.create(req.body.example)
-    // respond to succesful `create` with status 201 and JSON of new "example"
     .then(example => {
       res.status(201).json({ example: example.toObject() })
     })
