@@ -18,7 +18,6 @@ const { s3Upload, createParams, promiseReadFile } = require('../../lib/promiseS3
 // const handle404 = customErrors.handle404
 
 router.post('/uploads', multerUpload.single('file'), requireToken, (req, res, next) => {
-  console.log(req.file)
   promiseReadFile(req.file)
     .then(createParams)
     .then(s3Upload)

@@ -10,9 +10,6 @@ const router = express.Router()
 
 router.post('/carts', requireToken, removeBlanks, (req, res, next) => {
   req.body.cart.owner = req.user.id
-  console.log('****************************************************')
-  console.log(req.user.id)
-  console.log('****************************************************')
 
   Cart.create({
     product: req.body.cart.product._id,
@@ -48,11 +45,25 @@ router.delete('/carts/:id', requireToken, (req, res, next) => {
     .catch(next)
 })
 
-router.get('/carts', requireToken, (req, res, next) => {
-  console.log('****************************************************')
-  console.log(req.user.id)
-  console.log('****************************************************')
+router.delete('/cart', requireToken, (req, res, next) => {
+  console.log('hisham')
+  Cart.find({
+    owner: req.user.id
+  })
+    .then(handle404)
+    .then(carts => {
+      carts.forEach(function (cart) {
+        requireOwnership(req, cart)
+        cart.remove()
+      })
+    })
+    // send back 204 and no content if the deletion succeeded
+    .then(() => res.sendStatus(204))
+    // if an error occurs, pass it to the handler
+    .catch(next)
+})
 
+router.get('/carts', requireToken, (req, res, next) => {
   Cart.find({
     owner: req.user.id
   })
