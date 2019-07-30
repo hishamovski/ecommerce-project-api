@@ -61,6 +61,12 @@ https://www.noelshack.com/2019-30-5-1564147923-67152310-2240607816249976-4109940
 | Delete        | `/carts/:id`     |
 | DELETE	      | `/cart`          |
 
+###### Upload:
+
+| Method        | URL              |
+| ------------- |:----------------:|
+| POST          | `/uploads`       |
+
 ### Front and Back End deployed sites
 
 ###### Back end:
