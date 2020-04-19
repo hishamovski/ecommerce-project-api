@@ -14,13 +14,15 @@ const bookSchema = new mongoose.Schema({
     required: false
   },
   isbn: {
-    type: String
+    type: String,
+    required: true
   },
   url: {
     type: String
   },
   number_of_copies: {
-    type: String
+    type: Number,
+    required: true
   }
 }, {
   timestamps: true

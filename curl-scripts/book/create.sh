@@ -1,6 +1,6 @@
 #!/bin/bash
 
-API="http://localhost:4741"
+API="https://quiet-brook-56568.herokuapp.com"
 URL_PATH="/books"
 
 curl "${API}${URL_PATH}" \
